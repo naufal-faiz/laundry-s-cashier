@@ -23,7 +23,13 @@ class CashierApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: secondaryClr,
           foregroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        fontFamily: 'Poppins',
         scaffoldBackgroundColor: fourthClr,
       ),
       home: HomePage(),

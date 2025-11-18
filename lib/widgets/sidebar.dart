@@ -38,8 +38,8 @@ class Sidebar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.history, color: Colors.white),
-            title: Text("History", style: TextStyle(color: Colors.white)),
+            leading: Icon(Icons.monetization_on, color: Colors.white),
+            title: Text("Transaction", style: TextStyle(color: Colors.white)),
             onTap: () {
               Navigator.pushNamed(context, '/transaction');
             },
