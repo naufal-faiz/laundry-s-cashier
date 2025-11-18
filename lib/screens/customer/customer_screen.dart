@@ -1,10 +1,11 @@
 import 'package:aplikasi_kasir/models/customer.dart';
+import 'package:aplikasi_kasir/screens/customer/customer_form.dart';
 import 'package:aplikasi_kasir/widgets/customer_card.dart';
 import 'package:aplikasi_kasir/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 
-class CustomerPage extends StatelessWidget {
-  const CustomerPage({super.key});
+class CustomerScreen extends StatelessWidget {
+  const CustomerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,15 @@ class CustomerPage extends StatelessWidget {
           return CustomerCard(customer: customerList[index]);
         },
         itemCount: customerList.length,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CustomerForm()),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

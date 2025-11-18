@@ -44,6 +44,13 @@ class Sidebar extends StatelessWidget {
               Navigator.pushNamed(context, '/transaction');
             },
           ),
+          ListTile(
+            leading: Icon(Icons.history, color: Colors.white),
+            title: Text("History", style: TextStyle(color: Colors.white)),
+            onTap: () {
+              Navigator.pushNamed(context, '/history');
+            },
+          ),
         ],
       ),
     );

@@ -1,9 +1,10 @@
 import 'package:aplikasi_kasir/models/history.dart';
+import 'package:aplikasi_kasir/widgets/history_card.dart';
 import 'package:aplikasi_kasir/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 
-class History extends StatelessWidget {
-  const History({super.key});
+class HistoryScreen extends StatelessWidget {
+  const HistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,10 @@ class History extends StatelessWidget {
       drawer: Sidebar(),
       appBar: AppBar(title: Text("History")),
       body: ListView.builder(
+        itemBuilder: (context, index) {
+          return HistoryCard(history: historyList[index]);
+        },
         itemCount: historyList.length,
-        itemBuilder: (context, index) {},
       ),
     );
   }

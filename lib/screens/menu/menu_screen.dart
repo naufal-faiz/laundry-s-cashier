@@ -1,10 +1,11 @@
 import 'package:aplikasi_kasir/models/menu.dart';
+import 'package:aplikasi_kasir/screens/menu/menu_form.dart';
 import 'package:aplikasi_kasir/widgets/menu_card.dart';
 import 'package:aplikasi_kasir/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 
-class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
+class MenuScreen extends StatelessWidget {
+  const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,15 @@ class MenuPage extends StatelessWidget {
           return MenuCard(menu: menuList[index]);
         },
         itemCount: menuList.length,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MenuForm()),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

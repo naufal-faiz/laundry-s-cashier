@@ -1,5 +1,6 @@
 import 'package:aplikasi_kasir/main.dart';
 import 'package:aplikasi_kasir/models/customer.dart';
+import 'package:aplikasi_kasir/screens/customer/customer_edit_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomerCard extends StatelessWidget {
@@ -39,7 +40,14 @@ class CustomerCard extends StatelessWidget {
                   icon: Icon(Icons.delete, color: Colors.red),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CustomerEditScreen(),
+                      ),
+                    );
+                  },
                   icon: Icon(Icons.edit, color: Colors.white),
                 ),
               ],

@@ -1,7 +1,8 @@
-import 'package:aplikasi_kasir/screens/homepage.dart';
-import 'package:aplikasi_kasir/screens/menu.dart';
-import 'package:aplikasi_kasir/screens/customer.dart';
-import 'package:aplikasi_kasir/screens/transaction.dart';
+import 'package:aplikasi_kasir/screens/history_screen.dart';
+import 'package:aplikasi_kasir/screens/home_screen.dart';
+import 'package:aplikasi_kasir/screens/menu/menu_screen.dart';
+import 'package:aplikasi_kasir/screens/customer/customer_screen.dart';
+import 'package:aplikasi_kasir/screens/transaction/transaction.dart';
 import 'package:flutter/material.dart';
 
 var primaryClr = const Color.fromRGBO(60, 70, 123, 100);
@@ -21,6 +22,7 @@ class CashierApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         appBarTheme: AppBarTheme(
+          centerTitle: true,
           backgroundColor: secondaryClr,
           foregroundColor: Colors.white,
           titleTextStyle: TextStyle(
@@ -32,12 +34,13 @@ class CashierApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: fourthClr,
       ),
-      home: HomePage(),
+      home: HomeScreen(),
       routes: {
-        '/home': (context) => HomePage(),
-        '/customer': (context) => CustomerPage(),
-        '/menu': (context) => MenuPage(),
+        '/home': (context) => HomeScreen(),
+        '/customer': (context) => CustomerScreen(),
+        '/menu': (context) => MenuScreen(),
         '/transaction': (context) => Transaction(),
+        '/history': (context) => HistoryScreen(),
       },
     );
   }
