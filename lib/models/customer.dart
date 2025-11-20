@@ -1,15 +1,24 @@
+import 'package:hive/hive.dart';
+part 'customer.g.dart';
+
+@HiveType(typeId: 1)
 class Customer {
-  String id;
+  @HiveField(0)
+  int? id;
+
+  @HiveField(1)
   String name;
+
+  @HiveField(2)
   String address;
+  
+  @HiveField(3)
+  String phone;
 
-  Customer({required this.id, required this.name, required this.address});
+  Customer({
+    this.id,
+    required this.name,
+    required this.phone,
+    required this.address,
+  });
 }
-
-final List<Customer> customerList = [
-  Customer(id: '1', name: 'John Doe', address: '123 Main St'),
-  Customer(id: '2', name: 'Jane Smith', address: '456 Elm St'),
-  Customer(id: '3', name: 'Alice Johnson', address: '789 Oak St'),
-  Customer(id: '4', name: 'Bob Brown', address: '101 Pine St'),
-  Customer(id: '5', name: 'Charlie Davis', address: '202 Maple St'),
-];
