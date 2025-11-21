@@ -20,7 +20,7 @@ class MenuAdapter extends TypeAdapter<Menu> {
       id: fields[0] as int,
       name: fields[1] as String,
       price: fields[2] as double,
-      isKg: fields[3] as bool,
+      type: fields[3] as String,
     );
   }
 
@@ -35,7 +35,7 @@ class MenuAdapter extends TypeAdapter<Menu> {
       ..writeByte(2)
       ..write(obj.price)
       ..writeByte(3)
-      ..write(obj.isKg);
+      ..write(obj.type);
   }
 
   @override

@@ -30,7 +30,7 @@ class _MenuDetailState extends State<MenuDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [Text(menu.name), Text(menu.price.toStringAsFixed(0))],
+        children: [Text(menu.name), Text("Rp. ${menu.price.toStringAsFixed(0)}"), Text(menu.type)],
       ),
     );
   }

@@ -14,13 +14,12 @@ class Menu {
   double price;
 
   @HiveField(3)
-  bool isKg;
-  // true = kiloan, false = pcs
+  String type;
 
   Menu({
     this.id,
     required this.name,
     required this.price,
-    required this.isKg,
+    required this.type,
   });
 }

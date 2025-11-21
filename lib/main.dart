@@ -28,7 +28,7 @@ void main() async {
   Hive.registerAdapter(TransactionAdapter());
 
   await Hive.openBox<Customer>('customers');
-  await Hive.openBox<Menu>('menus');
+  await Hive.openBox<Menu>('items');
   await Hive.openBox<Transaction>('transactions');
 
   await Seeder.seedCustomers();
@@ -61,7 +61,7 @@ class CashierApp extends StatelessWidget {
       routes: {
         '/home': (context) => HomeScreen(),
         '/customer': (context) => CustomerScreen(),
-        // '/menu': (context) => MenuScreen(),
+        '/menu': (context) => MenuScreen(),
         // '/transaction': (context) => TransactionScreen(),
         // '/history': (context) => HistoryScreen(),
       },

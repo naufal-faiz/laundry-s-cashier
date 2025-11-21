@@ -19,3 +19,9 @@
 - Buat form create dan form edit customer
 - Pindahin button function ke dalam detail
 - Buat direct message ke whatsapp
+- Dikelas nyoba buat program ke menu
+- Malem nya coba buat model type dengan boolean
+
+21 November 2025
+- Ganti model boolean ke String
+- Setting model menu form ke radio button
