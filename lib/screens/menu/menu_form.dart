@@ -27,6 +27,7 @@ class _MenuFormState extends State<MenuForm> {
         key: _formKey,
         child: Column(
           children: [
+            // INPUT NAMA
             TextFormField(
               controller: _nameController,
               decoration: const InputDecoration(labelText: "Nama"),
@@ -34,14 +35,21 @@ class _MenuFormState extends State<MenuForm> {
                   ? "Nama tidak boleh kosong!"
                   : null,
             ),
+
+            // INPUT HARGA
             TextFormField(
               controller: _priceController,
               decoration: const InputDecoration(labelText: "Masukkan Harga"),
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              onChanged: (value) {
+                if (value.startsWith("0")) {
+                  _priceController.text = value.substring(1);
+                }
+              },
             ),
 
-            // GANTI PAKE SWITCH AJA BESOK
+            // RADIO BUTTON UNTUK TIPE LAUNDRY
             Text("Jenis Laundry"),
             RadioGroup<MenuType>(
               groupValue: _type,
@@ -69,6 +77,8 @@ class _MenuFormState extends State<MenuForm> {
             ),
 
             SizedBox(height: 20),
+
+            // BUTTON SAVE DATA BARU
             ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {

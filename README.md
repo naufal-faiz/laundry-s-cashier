@@ -25,3 +25,10 @@
 21 November 2025
 - Ganti model boolean ke String
 - Setting model menu form ke radio button
+
+22 November 2025
+- Update model transaksi dan menu
+- Buat form dan edit screen transaksi dan menu
+
+23 November 2025
+- Buat penanda setiap program

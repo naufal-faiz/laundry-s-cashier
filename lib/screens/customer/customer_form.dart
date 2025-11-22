@@ -23,12 +23,15 @@ class _CustomerFormState extends State<CustomerForm> {
         key: _formKey,
         child: Column(
           children: [
+            // INPUT NAMA
             TextFormField(
               controller: _nameController,
               decoration: const InputDecoration(labelText: "Input Nama"),
               validator: (value) =>
                   value!.isEmpty ? "Nama tidak boleh kosong" : null,
             ),
+
+            // INPUT NOMOR HP
             TextFormField(
               controller: _phoneController,
               keyboardType: TextInputType.phone,
@@ -45,6 +48,8 @@ class _CustomerFormState extends State<CustomerForm> {
                 }
               },
             ),
+
+            // INPUT ALAMAT
             TextFormField(
               controller: _addressController,
               decoration: const InputDecoration(labelText: "Input Alamat"),
@@ -54,6 +59,7 @@ class _CustomerFormState extends State<CustomerForm> {
 
             SizedBox(height: 20),
 
+            // TOMBOL SIMPAN DATA BARU
             ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {

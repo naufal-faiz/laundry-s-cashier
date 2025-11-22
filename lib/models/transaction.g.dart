@@ -18,7 +18,7 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
     };
     return Transaction(
       id: fields[0] as int,
-      customer: fields[1] as Customer,
+      customerId: fields[1] as int,
       items: (fields[2] as List).cast<TransactionItem>(),
       status: fields[3] as String,
       dateIn: fields[4] as DateTime,
@@ -33,7 +33,7 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.customer)
+      ..write(obj.customerId)
       ..writeByte(2)
       ..write(obj.items)
       ..writeByte(3)

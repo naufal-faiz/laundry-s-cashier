@@ -25,7 +25,7 @@ class _CustomerEditFormState extends State<CustomerEditForm> {
     final box = Hive.box<Customer>('customers');
     final customer = box.getAt(widget.index)!;
 
-    // Isi data controller dari yang sudah ada
+    // AMBIL DN ISI DATA DARI CONTROLLER YANG SUDAH ADA
     nameController = TextEditingController(text: customer.name);
     phoneController = TextEditingController(text: customer.phone);
     addressController = TextEditingController(text: customer.address);
@@ -39,6 +39,7 @@ class _CustomerEditFormState extends State<CustomerEditForm> {
     super.dispose();
   }
 
+  // FUNGSI UNTUK UPDATE DATA PELANGGAN
   void updateCustomer() {
     if (_formKey.currentState!.validate()) {
       final box = Hive.box<Customer>('customers');
@@ -56,12 +57,14 @@ class _CustomerEditFormState extends State<CustomerEditForm> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
         key: _formKey,
         child: Column(
           children: [
+            // INPUT NAMA
             TextFormField(
               controller: nameController,
               decoration: const InputDecoration(labelText: "Nama"),
@@ -69,6 +72,8 @@ class _CustomerEditFormState extends State<CustomerEditForm> {
                   ? "Nama tidak boleh kosong"
                   : null,
             ),
+
+            // INPUT NOMOR HP
             TextFormField(
               controller: phoneController,
               keyboardType: TextInputType.phone,
@@ -85,6 +90,8 @@ class _CustomerEditFormState extends State<CustomerEditForm> {
                 }
               },
             ),
+
+            // INPUT ALAMAT
             TextFormField(
               controller: addressController,
               decoration: const InputDecoration(labelText: "Input Alamat"),
@@ -94,6 +101,7 @@ class _CustomerEditFormState extends State<CustomerEditForm> {
 
             SizedBox(height: 20),
 
+            // TOMBOL SAVE
             ElevatedButton(
               onPressed: () {
                 updateCustomer();

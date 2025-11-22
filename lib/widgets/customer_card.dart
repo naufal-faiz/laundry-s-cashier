@@ -1,4 +1,3 @@
-import 'package:aplikasi_kasir/main.dart';
 import 'package:aplikasi_kasir/models/customer.dart';
 import 'package:aplikasi_kasir/screens/customer/customer_detail.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ class CustomerCard extends StatelessWidget {
   final int index;
 
   Future<void> openWhatsapp(String phoneNumber, {String message = ""}) async {
-    // Number formatter (no space and plus (+))
+    // NUMBER FORMATTER (TANPA SPASI DAN PLUS (+)
     final cleaned = phoneNumber.replaceAll(RegExp(r'[^0-9]'), '');
     final whatsappUrl = Uri.parse(
       "https://wa.me/$cleaned?text=${Uri.encodeFull(message)}",
@@ -28,16 +27,12 @@ class CustomerCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) =>
-                CustomerDetail(index: index),
-          ),
+          MaterialPageRoute(builder: (context) => CustomerDetail(index: index)),
         );
       },
 
       // },
       child: Card(
-        color: primaryClr,
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
@@ -46,25 +41,26 @@ class CustomerCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // NAMA PELANGGAN
                   Text(
                     customer.name,
                     style: const TextStyle(
-                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    customer.address,
-                    style: const TextStyle(color: Colors.white, fontSize: 10),
-                  ),
+
+                  // ALAMAT PELANGGAN
+                  Text(customer.address, style: const TextStyle(fontSize: 10)),
                 ],
               ),
+
+              // TOMBOL ARAHKAN KE WHATSAPP
               IconButton(
                 onPressed: () {
                   openWhatsapp(customer.phone);
                 },
-                icon: Icon(Icons.phone, color: Colors.white),
+                icon: Icon(Icons.phone),
               ),
             ],
           ),

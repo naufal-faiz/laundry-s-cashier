@@ -1,4 +1,3 @@
-import 'package:aplikasi_kasir/models/customer.dart';
 import 'package:aplikasi_kasir/models/transaction_item.dart';
 import 'package:hive/hive.dart';
 
@@ -10,7 +9,7 @@ class Transaction {
   int? id;
 
   @HiveField(1)
-  Customer customer;
+  int customerId;
 
   @HiveField(2)
   List<TransactionItem> items;
@@ -26,7 +25,7 @@ class Transaction {
 
   Transaction({
     this.id,
-    required this.customer,
+    required this.customerId,
     required this.items,
     required this.status,
     required this.dateIn,

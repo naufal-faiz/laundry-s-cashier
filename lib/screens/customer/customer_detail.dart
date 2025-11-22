@@ -20,6 +20,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
     customer = box.getAt(widget.index)!;
   }
 
+  // RELOAD DATA APABILA ADA PEMBARUAN
   void reloadCustomer() {
     final box = Hive.box<Customer>('customers');
     setState(() {
@@ -27,14 +28,17 @@ class _CustomerDetailState extends State<CustomerDetail> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
+          // DETAIL PELANGGAN
           Text(customer.name),
           Text(customer.phone),
           Text(customer.address),
 
+          // TOMBOL UNTUK EDIT DATA PELANGGAN
           Row(
             children: [
               ElevatedButton(

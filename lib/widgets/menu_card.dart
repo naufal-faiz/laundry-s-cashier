@@ -1,4 +1,3 @@
-import 'package:aplikasi_kasir/main.dart';
 import 'package:aplikasi_kasir/models/menu.dart';
 import 'package:aplikasi_kasir/screens/menu/menu_detail.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ class MenuCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: primaryClr,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -28,30 +26,33 @@ class MenuCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+                  // NAMA MENU
                   Text(
                     menu.name,
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
+                  // HARGA MENU
                   Text(
                     "Harga: Rp ${menu.price.toStringAsFixed(0)}",
-                    style: TextStyle(color: Colors.white, fontSize: 10),
+                    style: TextStyle(fontSize: 10),
                   ),
                 ],
               ),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.delete, color: Colors.red),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.edit, color: Colors.white),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: Icon(Icons.delete, color: Colors.red),
+                  // ),
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: Icon(Icons.edit, color: Colors.white),
+                  // ),
                 ],
               ),
             ],

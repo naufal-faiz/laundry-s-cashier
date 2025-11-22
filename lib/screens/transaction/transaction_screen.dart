@@ -1,16 +1,16 @@
-import 'package:aplikasi_kasir/models/customer.dart';
-import 'package:aplikasi_kasir/screens/customer/customer_form.dart';
-import 'package:aplikasi_kasir/widgets/customer_card.dart';
+import 'package:aplikasi_kasir/models/transaction.dart';
+import 'package:aplikasi_kasir/screens/transaction/transaction_form.dart';
 import 'package:aplikasi_kasir/widgets/sidebar.dart';
+import 'package:aplikasi_kasir/widgets/transaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class CustomerScreen extends StatelessWidget {
-  const CustomerScreen({super.key});
+class TransactionScreen extends StatelessWidget {
+  const TransactionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var box = Hive.box<Customer>('customers');
+    var box = Hive.box<Transaction>('transactions');
     return Scaffold(
       drawer: Sidebar(),
       appBar: AppBar(title: Text("Pelanggan")),
@@ -24,18 +24,26 @@ class CustomerScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: box.length,
             itemBuilder: (context, index) {
-              final customer = box.getAt(index);
+              final transaction = box.getAt(index)!;
 
-              return CustomerCard(customer: customer!, index: index);
+              return TransactionCard(
+                transaction: transaction,
+                onComplete: () {
+                  transaction.status = "Selesai";
+                  box.putAt(index, transaction);
+                },
+              );
             },
           );
         },
       ),
+
+      // TOMBOL TAMBAH DATA
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CustomerForm()),
+            MaterialPageRoute(builder: (context) => TransactionForm()),
           );
         },
         child: const Icon(Icons.add),

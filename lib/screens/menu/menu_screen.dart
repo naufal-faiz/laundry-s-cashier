@@ -16,7 +16,7 @@ class MenuScreen extends StatelessWidget {
       appBar: AppBar(title: Text("Menu")),
       body: ValueListenableBuilder(
         valueListenable: box.listenable(),
-        builder: (context, _, __) {
+        builder: (context, value, child) {
           if (box.isEmpty) {
             return Center(child: Text("Kosong"));
           }
