@@ -6,6 +6,11 @@ import 'package:aplikasi_kasir/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+class PurchaseRow {
+  Menu? menu;
+  TextEditingController qty = TextEditingController();
+}
+
 class TransactionForm extends StatefulWidget {
   const TransactionForm({super.key});
 
@@ -15,11 +20,9 @@ class TransactionForm extends StatefulWidget {
 
 class _TransactionFormState extends State<TransactionForm> {
   Customer? selectedCustomer;
-  Menu? selectedMenu;
-  final TextEditingController qtyController = TextEditingController();
 
-  List<TransactionItem> cartItems = [];
-  double total = 0;
+  // LIST DINAMIS UNTUK INPUT PEMBELIAN
+  List<PurchaseRow> purchaseRows = [PurchaseRow()];
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +40,7 @@ class _TransactionFormState extends State<TransactionForm> {
           children: [
             const Text(
               "Nama Pelanggan",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
 
             // DROPDOWN UNTUK PILIH PELANGGAN
@@ -65,121 +65,134 @@ class _TransactionFormState extends State<TransactionForm> {
             const SizedBox(height: 20),
 
             // PEMBELIAN BARANG
-            Row(
-              children: [
-                Expanded(
-                  
-                  // PILIH JENIS MENU
-                  child: DropdownButtonFormField<Menu>(
-                    decoration: const InputDecoration(
-                      labelText: "Pilih Laundry",
-                    ),
-                    initialValue: selectedMenu,
-                    items: menuBox.values
-                        .map(
-                          (menu) => DropdownMenuItem(
-                            value: menu,
-                            child: Text(menu.name),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedMenu = value;
-                      });
-                    },
-                  ),
-                ),
-
-                const SizedBox(width: 10),
-
-                // QUANTITY ATAU JUMLAH DARI SUATU PILIHAN
-                SizedBox(
-                  width: 80,
-                  child: TextFormField(
-                    controller: qtyController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: "Qty"),
-                  ),
-                ),
-
-                const SizedBox(width: 10),
-                Text(selectedMenu?.type ?? ""),
-              ],
-            ),
-            const SizedBox(height: 20),
-
-            // TOMBOL UNTUK UPDATE MENU SEKALIGUS TAMBAH DATA DIPILIH
-            ElevatedButton(
-              onPressed: () {
-                if (selectedMenu == null || qtyController.text.isEmpty) return;
-
-                final qty = double.tryParse(qtyController.text) ?? 1;
-                final subtotal = selectedMenu!.price * qty;
-
-                setState(() {
-                  cartItems.add(
-                    TransactionItem(
-                      menu: selectedMenu!,
-                      qty: qty,
-                      totalPrice: subtotal,
-                    ),
-                  );
-                  total += subtotal;
-                  qtyController.clear();
-                });
-              },
-              child: const Text("Tambah item"),
-            ),
-
-            const SizedBox(height: 20),
-
-            // PREVIEW TOTAL HARGA
             Expanded(
               child: ListView.builder(
-                itemCount: cartItems.length,
+                itemCount: purchaseRows.length,
                 itemBuilder: (context, index) {
-                  final item = cartItems[index];
+                  final row = purchaseRows[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            // PILIH JENIS MENU
+                            child: DropdownButtonFormField<Menu>(
+                              decoration: const InputDecoration(
+                                labelText: "Pilih Laundry",
+                              ),
+                              items: menuBox.values
+                                  .map(
+                                    (menu) => DropdownMenuItem(
+                                      value: menu,
+                                      child: Text(menu.name),
+                                    ),
+                                  )
+                                  .toList(),
+                              initialValue: row.menu,
+                              onChanged: (value) {
+                                setState(() {
+                                  row.menu = value;
+                                });
+                              },
+                            ),
+                          ),
 
-                  return ListTile(
-                    title: Text("${item.menu.name} (${item.menu.type})"),
-                    subtitle: Text(
-                      "${item.qty.toStringAsFixed(0)} x Rp. ${item.menu.price.toStringAsFixed(0)}",
+                          const SizedBox(width: 10),
+
+                          // QUANTITY ATAU JUMLAH DARI SUATU PILIHAN
+                          SizedBox(
+                            width: 80,
+                            child: TextFormField(
+                              controller: row.qty,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                labelText: "Qty",
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(width: 10),
+                          Text(row.menu?.type ?? ""),
+
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (purchaseRows.length > 1) {
+                                  purchaseRows.removeAt(index);
+                                }
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.exposure_minus_2_rounded,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    trailing: Text("Rp. ${item.totalPrice.toStringAsFixed(0)}"),
                   );
                 },
               ),
             ),
-
             const SizedBox(height: 20),
 
-            // TOTAL KESELURUHAN HARGA
-            Text(
-              "Total : Rp. ${total.toStringAsFixed(0)}",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            // TOMBOL TAMBAH JENIS PESANAN
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add),
+              label: const Text("Tambah Input"),
+              onPressed: () {
+                setState(() {
+                  purchaseRows.add(PurchaseRow());
+                });
+              },
             ),
 
-            // UPDATE UNTUK SIMPAN SELURUH DATA TRANSAKSI DAN OTOMATIS MENAMBAH TANGGAL DAN STATUS PENDING
+            // TOMBOL SIMPAN
             ElevatedButton(
               onPressed: () async {
-                if (selectedCustomer == null || cartItems.isEmpty) return;
+                if (selectedCustomer == null) return;
 
-                final newTransaction = Transaction(
+                List<TransactionItem> items = [];
+                double totalPrice = 0;
+
+                for (var row in purchaseRows) {
+                  if (row.menu == null || row.qty.text.isEmpty) continue;
+
+                  final qty = double.tryParse(row.qty.text) ?? 1;
+                  final subtotal = row.menu!.price * qty;
+
+                  items.add(
+                    TransactionItem(
+                      menu: row.menu!,
+                      qty: qty,
+                      totalPrice: subtotal,
+                    ),
+                  );
+
+                  totalPrice += subtotal;
+                }
+
+                if (items.isEmpty) return;
+
+                final transaction = Transaction(
                   customerId: selectedCustomer!.id!,
-                  items: cartItems,
+                  items: items,
                   status: "pending",
                   dateIn: DateTime.now(),
-                  totalPrice: total,
+                  totalPrice: totalPrice,
                 );
 
-                final key = await transactionBox.add(newTransaction);
-                newTransaction.id = key;
-                await transactionBox.put(key, newTransaction);
+                final box = transactionBox;
+                final key = await box.add(transaction);
 
+                transaction.id = key;
+
+                await box.put(key, transaction);
                 Navigator.pop(context, true);
               },
-              child: const Text("Simpan"),
+              child: Text("Simpan"),
             ),
           ],
         ),
